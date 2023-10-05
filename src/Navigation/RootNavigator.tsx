@@ -1,12 +1,10 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Dispatch, SetStateAction, useState } from "react";
-import Home from "./src/BottomTab/Home";
-import Profile from "./src/BottomTab/Profile";
-import AdminTabNavigator from "./src/Navigation/admin-tab-navigation";
-import Detail from "./src/Stack/Detail";
-
+import Home from "../BottomTab/Home";
+import Profile from "../BottomTab/Profile";
+import Detail from "../Stack/Detail";
 export type RootParamList = {
     Home: undefined;
     Profile:undefined;
@@ -22,6 +20,7 @@ const TabNavigator = ()=>{
     <Tab.Navigator>
       <Tab.Screen name="Home" component={StackNavigator}/>
       <Tab.Screen name="Profile" component={Profile}/>
+
     </Tab.Navigator>
   )
 }
@@ -33,27 +32,9 @@ const StackNavigator = ()=>{
     </Stack.Navigator>
   )
 }
-export type GlobalProps= {
-  setIsLogin: Dispatch<SetStateAction<boolean>>;
-  setIsAdmin: Dispatch<SetStateAction<boolean>>;
+const RootNavigation = ()=>{
+    return <NavigationContainer>
+    <TabNavigator/>
+  </NavigationContainer>
 }
-const App =()=>{
-  const [isLogin,setIsLogin] = useState(false);
-  const [isAdmin,setIsAdmin] = useState(false);
-  const globalProps : GlobalProps = {
-    setIsLogin,
-    setIsAdmin
-  }
-   return <AdminTabNavigator globalProps={globalProps}/>
-   //!isLogin?
-//   <AuthStackNavigator globalProps={globalProps}/>
-//   //:
-//  // isAdmin?
-//     <AdminTabNavigator globalProps={globalProps}/>
-//    // :
-//     <UserTabNavigator globalProps={globalProps}/>
-//   <NavigationContainer>
-//   <TabNavigator/>
-// </NavigationContainer>
-}
-export default App;
+export default RootNavigation();
